@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="todos">
+    <section class="todoapp">
+      <header class="header">
+        <h1>Todos</h1>
+        <input @keyup.enter="add" v-model="newtache" type="text" class="new-todo" placeholder="Ajouter une tache">
+      </header>
+      <div class="main">
+        <input type="checkbox" id="toggle-all" class="toggle-all">
+        <label for="toggle-all">Mark all as complete</label>
+        <ul class="todo-list">
+          <li v-for="(tache, index) in taches" class="todo">
+            <div class="view">
+              <input v-model="tache.completed" type="checkbox" class="toggle">
+              <label :style="tache.completed ? 'color: grey; text-decoration: line-through;' : 'color: black;'">{{ tache.content }}</label>
+              <button @click="del(index)" class="destroy"></button>
+            </div>
+            <!-- <input type="text" class="edit"> -->
+          </li>
+        </ul>
+      </div>
+      <footer v-if="taches.length != 0" class="footer">
+        <span class="todo-count"><strong>{{ sumToDo }}</strong> tâches à faire</span>
+        <ul class="filters">
+          <li><a href="#" class="selected">Toutes</a></li>
+          <li><a href="#">À faire</a></li>
+          <li><a href="#">Faites</a></li>
+        </ul>
+        <button @click="delCompleted" v-if="allDone" class="clear-completed">Clear accomplished</button>
+      </footer>
+    </section>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
